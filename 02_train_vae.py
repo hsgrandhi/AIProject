@@ -61,9 +61,9 @@ def main(args):
 
   if not new_model:
     try:
-      vae.set_weights('./vae/weights.h5')
+      vae.set_weights('./vae/weights2.h5')
     except:
-      print("Either set --new_model or ensure ./vae/weights.h5 exists")
+      print("Either set --new_model or ensure ./vae/weights2.h5 exists")
       raise
 
   try:
@@ -82,11 +82,11 @@ def main(args):
 
 if __name__ == "__main__":
   parser = argparse.ArgumentParser(description=('Train VAE'))
-  parser.add_argument('--N',default = 10000, help='number of episodes to use to train')
+  parser.add_argument('--N',default = 100, help='number of episodes to use to train')
   parser.add_argument('--new_model', action='store_true', help='start a new model from scratch?')
   parser.add_argument('--time_steps', type=int, default=300,
                         help='how many timesteps at start of episode?')
-  parser.add_argument('--epochs', default = 10, help='number of epochs to train for')
+  parser.add_argument('--epochs', default = 30, help='number of epochs to train for')
   args = parser.parse_args()
 
   main(args)

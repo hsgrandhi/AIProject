@@ -52,10 +52,10 @@ def main(args):
     vae = VAE()
 
     try:
-      vae.set_weights('./vae/weights.h5')
+      vae.set_weights('./vae/weights2.h5')
     except Exception as e:
       print(e)
-      print("./vae/weights.h5 does not exist - ensure you have run 02_train_vae.py first")
+      print("./vae/weights2.h5 does not exist - ensure you have run 02_train_vae.py first")
       raise
 
 
