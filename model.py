@@ -31,7 +31,7 @@ ADD_NOISE = False
 def make_model():
 
   vae = VAE()
-  vae.set_weights('./vae/weights.h5')
+  vae.set_weights('./vae/weights2.h5')
 
   rnn = RNN()
   rnn.set_weights('./rnn/weights.h5')
