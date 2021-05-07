@@ -71,4 +71,20 @@ Above we have discussed above about the reinforcement learning, model-based arch
 
 
 **Training V, M and C model<br />**
+A predictive world model is used extract useful representations of space and time. Using these features as inputs of a controller, we can train a compact and minimal controller to perform a continuous control task such as learning to drive from pixel inputs from top-down car racing environment. Reward is -0.1 every frame and + 1000/N for every track tile visited, where N is total number of tiles in track. For example, if you finished in 732 frames, you reward is 1000-0.1*732= 926.8 points. For good performance, we need to get 900+ points consistently. Track is random every episode. Episode finishes when all tiles are visited. If car go far off the track, then it will get -100 and die. Agent conrol three continuous actions: steering left/right, acceleration and brake. </br>
+
+First, collect a dataset of 2000 random rollouts of the environment. We have an agent acting randomly to explore the environment multiple times and record the random actions a_t taken and the resulting observtions from the environment. 01_generate_data.py is used to collect this data in folder data\rollout. </br>
+
+We use this dataset to train V to learn a latent space of each frame observed. We encode each frame in low dimentional latent vector z_t by minimizing the difference between a given frame and the reconstructed version of the frame produced by the decoder from z. 02_train_vae.py is used to train over 100 episodes. </br>
+
+We can now use our trained V model to pre-process each frame at time t into z_t to train our M model. Pre-processed data, along with the recorded random actions a_t taken, our MDN-RNN can now be trained to model P(z_t+1 | a_t, z_t, h_t) as a mixture of gaussians. 03_generate_rnn_data.py prepossed data and store in data/series folder. We then train our M component using 04_train_rnn.py </br>
+
+World model (V and M) does not have knowledge of actual reward signals from the environment. Its task is simply to compress and predict the sequence of image frames observed. Controler function have access to reward information from the environment. CMA-ES evolutionary algorithm is well suited to optimize parameters inside linear controller model. To train our controller we have use 05_train_controller.py.</br>
+
+To summarize the Car Racing experiment, below are the steps taken:</br>
+1. Collect 2000 rollouts from a random policy.</br>
+2. Train VAE (V) to encode frames into z 2 R32.</br>
+3. Train MDN-RNN (M) to model P(zt+1 j at; zt; ht).</br>
+4. Define Controller (C) as at = Wc [zt ht] + bc.</br>
+5. Use CMA-ES to solve for a Wc and bc that maximizes the expected cumulative reward.</br>
 
