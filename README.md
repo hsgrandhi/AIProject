@@ -92,7 +92,7 @@ where w<sub>c</sub> and B<sub>c</sub> are weight matrix and bias vector respecti
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;We use this dataset to train V to learn a latent space of each frame observed. We encode each frame in low dimentional latent vector z_t by minimizing the difference between a given frame and the reconstructed version of the frame produced by the decoder from z. 02_train_vae.py is used to train over 100 episodes. </br>
 ![](images/vae_train.PNG)</br>
 ![](images/vae_check.PNG)</br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;We can now use our trained V model to pre-process each frame at time t into z_t to train our M model. Pre-processed data, along with the recorded random actions a_t taken, our MDN-RNN can now be trained to model P(z<sub>t+1</sub> | a<sub>t</sub>, z<sub>t</sub>, h<sub>t</sub>) as a mixture of gaussians. 03_generate_rnn_data.py prepossed data and store in data/series folder. We then train our M component using 04_train_rnn.py </br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;We can now use our trained V model to pre-process each frame at time t into z_t to train our M model. Pre-processed data, along with the recorded random actions a_t taken, our MDN-RNN can now be trained to model P(z<sub>t+1</sub> | a<sub>t</sub>, z<sub>t</sub>, h<sub>t</sub>) as a mixture of gaussians. 03_generate_rnn_data.py preprocessed data and store in data/series folder. We then train our M component using 04_train_rnn.py </br>
 ![](images/generate_rnn.PNG)</br>
 ![](images/train_rnn.PNG)</br>
 
