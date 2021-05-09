@@ -68,6 +68,8 @@ where w<sub>c</sub> and B<sub>c</sub> are weight matrix and bias vector respecti
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;We can train large and sophisticated models efficiently, provided we define a well behaved, differential loss functions. Most of the model complexity and model parameters would reside in V and M. Number of parameters in C are minimal in comparison to M and V. This allow us to explore more unconventional ways to train C example, even using evolution strategies (ES) to tackle more challenging RL tasks where credit assignment problem is difficult. Co-variance matrix adaptation evolution strategy (CMA-ES) is used to optimize the parameter C. It works well for solution spaces of up to a few thousand parameters. </br>
 
+***
+
 **Car racing experiment**</br>
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;In car racing project, we are training large neural network to tackle reinforcement learning tasks. Agent is divided into large world model and small controller model. We first train a large neural network to learn model of Agents world in an unsupervised manner. Then we train small controller model to learn to perform task using world model. Training algorithm of small controller, focus on credit assignment problem on small search space while not sacrificing capacity and expressiveness via large world models. Training the agent through the lens of its world model, It was shown here that agent can learn highly compact policy to perform the task.</br>
@@ -146,6 +148,12 @@ We ran into number of issues from environment setup to training of agent. Some o
 
 
 **Results of training<br />**
+
+Though we ran into a number of problems, we were able to overcome the main problem of not having enough system memory allocation, by using a vae model from a different source and training it with the limited environment. On proceeding with the remaining steps, we observed results similar to the reference paper. The RNN model training resulted in an accurate model, and upon verifying it with the notebooks, gave suitable results. The training of the controller was where we a slight deviation from the paper. In the initial stages of training, the average reward was stuck in the negative range, and even after several hours of training we would observe a sudden dip in the average reward for particular episode. The highest average reward we recorded was 173.09, in the 256th episode. When we proceeded to check the controller behaviour using the corresponding notebooks, we observed that it did however behave as expected in most situations, but faced a bit of difficulty at the turns. 
+![](images/controller.JPG)
+We believe this is due to insufficient time spent training, due to the time contraint. It should also be noted that due to not being able to train the vae model due to the memory bandwidth could have also led to this problem. Over all the vae model produced results similar to the paper, and had slight issues, which could have been addressed with enough time.
+
+***
 
 **A new approach that combines the VAE with a GAN<br />**
 
