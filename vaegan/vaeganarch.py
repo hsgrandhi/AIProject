@@ -202,7 +202,11 @@ class VAEGAN():
         normal_coef = 0.1
         kl_coef = 0.01
         
-        return (vae_full,vae_encoder, vae_decoder)
+        return {
+            "e_loss": E_loss,
+            "g_loss": G_loss,
+            "d_loss": D_loss
+        }
 
     def set_weights(self, filepath):
         self.full_model.load_weights(filepath)
