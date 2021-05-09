@@ -68,8 +68,6 @@ where w<sub>c</sub> and B<sub>c</sub> are weight matrix and bias vector respecti
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;We can train large and sophisticated models efficiently, provided we define well-behaved, differential loss functions. Most of the model complexity and model parameters would reside in V and M. Number of parameters in C are minimal in comparison to M and V. This allows us to explore more unconventional ways to train C example, even using evolution strategies (ES) to tackle more challenging RL tasks where credit assignment problem is difficult. Co-variance matrix adaptation evolution strategy (CMA-ES) is used to optimize the parameter C. It works well for solution spaces of up to a few thousand parameters. </br>
 
-***
-
 **Car racing experiment**</br>
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;In the in-car racing project, we are training a large neural network to tackle reinforcement learning tasks. An agent is divided into a large world model and a small controller model. We first train a large neural network to learn the model of Agents world in an unsupervised manner. Then we train the small controller model to learn to perform the task using the world model. Training algorithm of the small controller, focus on credit assignment problem on small search space while not sacrificing capacity and expressiveness via large world models. Training the agent through the lens of its world model, It was shown here that agent can learn highly compact policy to perform the task.</br>
@@ -94,6 +92,7 @@ where w<sub>c</sub> and B<sub>c</sub> are weight matrix and bias vector respecti
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;We have demonstrated the possibility of training an agent to perform tasks entirely inside of its simulated latent space dream world. This approach offers many practical benefits. For instance, to run computationally intensive engines, We may not want to waste cycles training an agent in the actual environment, but instead train the agent as many times as we want inside its simulated environment as training agents in the real world are more expensive. Another area is the choice of using and training VAE for the V model as a standalone model has its limitations as it can encode parts of observation that are not relevant to the task. We can train it with the M model that predicts rewards and VAE can learn t focus on learning task-relevant areas of the image. But the downside of using this technique is that we can not reuse VAE for new tasks without retraining. Future work is needed in replacing small MDN-RNN networks with higher capacity models. LSTM based models are not capable of storing all recorded information inside their weighted connections. It suffers from catastrophic forgetting. The recent approach is One Big Net. It collapses C and M into a single network and uses power play-like behavioral replay to avoid forgetting old predictions and control skills when learning the new one. </br>
 
+***
 
 **Training V, M and C model<br />**
 
